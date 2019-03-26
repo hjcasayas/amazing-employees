@@ -1,0 +1,62 @@
+<div>
+<h2>Employee Details</h2>
+<form [formGroup]="employeeDetailForm" (ngSubmit)="onSubmit()">
+  <div>
+    <div class="row">
+      <div class="col">
+        <h4>Personal Information</h4>
+        <div class="form-group">
+            <label for=""> Fullname: 
+              <input type="text" formControlName="fullname" class="form-control">
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="">Primary Address: 
+              <input type="text" formControlName="primaddress" class="form-control">
+            </label>
+          </div>
+          <div class="form-group">
+            <label for=""> Age: 
+              <input type="text" formControlName="age" class="form-control">
+            </label>
+          </div>
+      </div>
+      <div class="col">
+        <h4>Location Information</h4>
+        <button (click)="addAddress()">Add</button>
+        <div class="form-group" formGroupName="address">
+          <label for=""> Primary Address: 
+            <input type="text" formControlName="address" class="form-control">
+          </label>
+        </div>
+        <div class="form-group" formArrayName="moreadds">
+            <label for=""> Other Phone Numbers: 
+                <div *ngFor="let adds of moreAdds.controls; let i=index"> 
+                    <input type="text" [formControlName]="i" class="form-control">
+                </div>
+            </label>
+          </div>      
+      </div>
+      <div class="col">
+        <h4>Contact Information</h4>
+        <button (click)="addContact()">Add</button>
+        <div class="form-group" formGroupName="contact">
+          <label for=""><span>Primary Phone Number: </span>
+            <input type="text" formControlName="phone" class="form-control">
+          </label>
+        </div>
+        <div class="form-group" formArrayName="morecontacts">
+          <label for=""> Other Phone Numbers: 
+              <div *ngFor="let contact of moreContacts.controls; let i=index"> 
+                  <input type="text" [formControlName]="i" class="form-control">
+              </div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p><button type="submit" [disabled]="!employeeDetailForm.valid" (click)="initilizeSomeEmployeeDetails()">Update</button></p>
+  <p>Form Value: {{employeeDetailForm.value | json}}</p>
+  <p>Form Status:{{employeeDetailForm.status}}</p>
+</form>
+</div>

@@ -1,0 +1,44 @@
+<h2>My Amazing Employees</h2>
+<div class="employee-list">
+  <table class="employee-list__table" mat-table [dataSource]="employees">
+    <ng-container matColumnDef="fullname">
+        <th mat-header-cell *matHeaderCellDef>Fullname</th>
+        <td mat-cell *matCellDef="let element"> {{element.fullname}} </td>
+    </ng-container>
+    <ng-container matColumnDef="primaddress">
+        <th mat-header-cell *matHeaderCellDef>Primary Address</th>
+        <td mat-cell *matCellDef="let element"> {{element.primaddress}} </td>
+    </ng-container>
+    <ng-container matColumnDef="contact">
+        <th mat-header-cell *matHeaderCellDef>Contact Information</th>
+        <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
+    </ng-container>
+    <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef>Age</th>
+        <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+    </ng-container>
+    <ng-container matColumnDef="years">
+        <th mat-header-cell *matHeaderCellDef>Years</th>
+        <td mat-cell *matCellDef="let element"> {{element.years}} </td>
+    </ng-container>
+    <ng-container matColumnDef="months">
+        <th mat-header-cell *matHeaderCellDef>Months</th>
+        <td mat-cell *matCellDef="let element"> {{element.months}} </td>
+    </ng-container>
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+            <a routerLink="/add-employee/{{element.id}}">
+                <mat-icon color="primary">edit</mat-icon>
+            </a>
+            <a routerLink=".">
+                <mat-icon color="warn">delete</mat-icon>
+            </a>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+</div>

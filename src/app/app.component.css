@@ -1,0 +1,24 @@
+*{
+  box-sizing: border-box;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+.site-nav {
+  margin-bottom: 10px;
+}
+
+.site-nav li {
+  display: inline-block;
+}
+
+.site-nav a {
+  display: inline-block;
+  padding: .1rem 2rem;
+  margin-right: 8px;
+  border: 1px solid #ddd;
+}
