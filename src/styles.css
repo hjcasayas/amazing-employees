@@ -1,6 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
 
 .selector-for-some-widget {
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
+
+*{
+  box-sizing: border-box;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 1.875rem;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

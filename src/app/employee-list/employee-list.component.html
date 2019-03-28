@@ -1,6 +1,5 @@
-<h2>My Amazing Employees</h2>
 <div class="employee-list">
-  <table class="employee-list__table" mat-table [dataSource]="employees">
+  <table color="accent" class="mat-elevation-z8" mat-table [dataSource]="employees">
     <ng-container matColumnDef="fullname">
         <th mat-header-cell *matHeaderCellDef>Fullname</th>
         <td mat-cell *matCellDef="let element"> {{element.fullname}} </td>

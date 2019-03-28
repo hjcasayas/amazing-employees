@@ -1,25 +1,27 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="wrapper">
   <header class="site-header">
-    <div class="container-fluid">
-      <h1 site-header__title>MORyt!</h1>
-      <p site-header__sub-title>Take care of your employees and they will take care of your business.</p>
-      <nav class="site-nav">
-          <a mat-stroked-button color="primary" routerLink="/employee-list">List</a>
-          <a mat-stroked-button color="primary" routerLink="/add-employee">Add</a>
-      </nav>
+    <div class="container clearfix">
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <h1 site-header__title>Amazing Employees</h1>
+          <span class="site-nav__spacer"></span>
+          <a mat-button color="foreground" routerLink="/employee-list">List</a>
+          <a mat-flat-button color="warn" routerLink="/add-employee">Add</a>
+        </mat-toolbar-row>
+      </mat-toolbar>
     </div>
   </header>
-  <div class="container-fluid">
+  <div class="container">
     <router-outlet></router-outlet>
   </div>
-  <footer class="site-footer">
+  <!-- <footer class="site-footer">
     <div class="container-fluid">
       <h2>Goodbye, from footer</h2>
     </div>
-  </footer>
-
-  <div class="container-fluid">
+  </footer> -->
+  <!-- <div class="container-fluid">
     <app-message></app-message>
-  </div>
+  </div> -->
 </div>
+
