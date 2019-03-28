@@ -1,0 +1,26 @@
+.mat-card-region {
+  margin: .5rem 0;
+  margin-right: 0;
+  margin-left: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.full-width-employee-form-field,
+.full-width-employee-field {
+display: block;
+max-width: 100%;
+}
+
+.employee-information__details__row {
+  margin-right: -1rem;
+}
+
+.width-employee-form-field-1-3 {
+  display: inline-block;
+  width: 33.33%;
+}
+
+.employee-information__details__row .width-employee-form-field-1-3 {
+  padding-right: 1rem;
+}

@@ -4,6 +4,7 @@ import { EmployeeService } from "../employee.service";
 import { Location } from "@angular/common";
 import { Employee } from "../employee";
 import { ActivatedRoute } from "@angular/router";
+import { Gender } from "../gender";
 
 @Component({
   selector: 'app-add-employee',
@@ -11,6 +12,25 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent implements OnInit {
+
+  genders: Gender[] = [
+    {value: 'female', viewValue: 'Female'},
+    {value: 'male', viewValue: 'Male'},
+  ];
+
+  maritalStats: Gender[] = [
+    {value: 'single', viewValue: 'Single'},
+    {value: 'maried', viewValue: 'Maried'},
+    {value: 'widowed', viewValue: 'Widowed'},
+    {value: 'separated', viewValue: 'Separated'},
+  ];
+
+  positions: Gender[] = [
+    {value: 'associate', viewValue: 'Associate'},
+    {value: 'junior', viewValue: 'Junior Developer'},
+    {value: 'senior', viewValue: 'Senior Developer'},
+    {value: 'manager', viewValue: 'Project Manager'},
+  ];
 
   employee: Employee;
 
@@ -23,21 +43,28 @@ export class AddEmployeeComponent implements OnInit {
 
   
   employeeDetailForm = this.fb.group({
-    fullname : ['', Validators.required],
+    firstName : ['', Validators.required],
+    middleName : ['', Validators.required],
+    lastName : ['', Validators.required],
+    dob : ['', Validators.required],
+    gender : ['', Validators.required],
+    maritalStatus : ['', Validators.required],
+    position : ['', Validators.required],
+    dateHired : ['', Validators.required],
     primaddress : [''],
     age : [''],
-    address : this.fb.group({
-      address: [''],
-    }),
-    moreadds: this.fb.array([
-      this.fb.control(''),
-    ]),
-    contact: this.fb.group({
-      phone: [''],
-    }),
-    morecontacts: this.fb.array([
-      this.fb.control(''),
-    ]),
+    // address : this.fb.group({
+    //   address: [''],
+    // }),
+    // moreadds: this.fb.array([
+    //   this.fb.control(''),
+    // ]),
+    // contact: this.fb.group({
+    //   phone: [''],
+    // }),
+    // morecontacts: this.fb.array([
+    //   this.fb.control(''),
+    // ]),
   });
 
   ngOnInit() {
@@ -58,21 +85,21 @@ export class AddEmployeeComponent implements OnInit {
     });
   }
 
-  get moreAdds() {
-    return this.employeeDetailForm.get('moreadds') as FormArray;
-  }
+  // get moreAdds() {
+  //   return this.employeeDetailForm.get('moreadds') as FormArray;
+  // }
 
-  get moreContacts() {
-    return this.employeeDetailForm.get('morecontacts') as FormArray;
-  }
+  // get moreContacts() {
+  //   return this.employeeDetailForm.get('morecontacts') as FormArray;
+  // }
 
-  addAddress() {
-    this.moreAdds.push(this.fb.control(''));
-  }
+  // addAddress() {
+  //   this.moreAdds.push(this.fb.control(''));
+  // }
 
-  addContact() {
-    this.moreContacts.push(this.fb.control(''));
-  }
+  // addContact() {
+  //   this.moreContacts.push(this.fb.control(''));
+  // }
 
   getEmployee() {
     const id = +this.route.snapshot.paramMap.get('id');
