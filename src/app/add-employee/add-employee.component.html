@@ -19,17 +19,17 @@
           <div class="employee-information__details__row clearfix">
               <mat-form-field class="width-employee-form-field-1-3">
                 <mat-label>Gender</mat-label>
-                <mat-select>
+                <mat-select formControlName="gender">
                   <mat-option *ngFor="let gender of genders" [value]="gender.value">{{gender.viewValue}}</mat-option>
                 </mat-select>
                 </mat-form-field>            <mat-form-field class="width-employee-form-field-1-3">
-              <input matInput [matDatepicker] = "dobPicker" type="text" placeholder="Date Of Birth" formControlName="dob" class="full-width-employee-field">
+              <input matInput [matDatepicker] = "dobPicker" type="text" placeholder="Date Of Birth" formControlName="dobirth" class="full-width-employee-field">
               <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
               <mat-datepicker #dobPicker></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="width-employee-form-field-1-3">
               <mat-label>Marital Status</mat-label>
-              <mat-select>
+              <mat-select formControlName="maritalStatus">
                 <mat-option *ngFor="let maritalStat of maritalStats" [value]="maritalStat.value">{{maritalStat.viewValue}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -37,54 +37,64 @@
           <div class="employee-information__details__row">
             <mat-form-field class="width-employee-form-field-1-3">
               <mat-label>Position</mat-label>
-              <mat-select>
+              <mat-select formControlName="position">
                 <mat-option *ngFor="let position of positions" [value]="position.value">{{position.viewValue}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="width-employee-form-field-1-3">
-                <input matInput [matDatepicker] = "dhPicker" type="text" placeholder="Date Hired" formControlName="dateHired" class="full-width-employee-field">
+                <input matInput [matDatepicker] = "dhPicker" type="text" placeholder="Date Hired" formControlName="dohired" class="full-width-employee-field">
                 <mat-datepicker-toggle matSuffix [for]="dhPicker"></mat-datepicker-toggle>
                 <mat-datepicker #dhPicker></mat-datepicker>
             </mat-form-field>                      
           </div>
         </mat-card>
-        <!-- <mat-card class="mat-card-region" role="region">
-          <h4>Location Information</h4>
-          <button (click)="addAddress()">Add</button>
-          <div class="form-group" formGroupName="address">
-            <label for=""> Primary Address: 
-              <input type="text" formControlName="address" class="form-control">
-            </label>
-          </div>
-          <div class="form-group" formArrayName="moreadds">
-            <label for=""> Other Phone Numbers: 
-              <div *ngFor="let adds of moreAdds.controls; let i=index"> 
-                <input type="text" [formControlName]="i" class="form-control">
-              </div>
-            </label>
-          </div>      
-        </mat-card>
-        <mat-card class="mat-card-region" role="region">
-          <h4>Contact Information</h4>
-          <button (click)="addContact()">Add</button>
-          <div class="form-group" formGroupName="contact">
-            <label for=""><span>Primary Phone Number: </span>
-              <input type="text" formControlName="phone" class="form-control">
-            </label>
-          </div>
-          <div class="form-group" formArrayName="morecontacts">
-            <label for=""> Other Phone Numbers: 
-                <div *ngFor="let contact of moreContacts.controls; let i=index"> 
-                    <input type="text" [formControlName]="i" class="form-control">
+      </div>
+      <div class="employee-information__details__row clearfix">
+        <!-- Location Information -->
+        <div class="width-employee-form-field-1-2">
+          <mat-card class="mat-card-region" role="region">
+            <h4>Location Information</h4>
+            <mat-radio-group class="radio-array-button"><mat-radio-button [checked]="true">Set as primary</mat-radio-button></mat-radio-group>
+            <button mat-flat-button (click)="addAddress()" type="button" color="warn" class="add-button">Add Address</button>
+            <mat-card role="region" class="mat-card-region mat-card-region--with-buttons">
+              <mat-radio-group formControlName="primaddress" formArrayName="addresses">
+                <div *ngFor="let address of addresses.controls; let i = index">
+                  <mat-radio-button labelPosition="before" [value]=address.value [checked]="address.value === primaddress.value">
+                    <mat-form-field class="full-width-employee-form-field" class="employee-radio-button__input-container">
+                      <input matInput type="text" placeholder="Address" [formControlName]="i" class="full-width-employee-field">
+                    </mat-form-field>            
+                  </mat-radio-button>
                 </div>
-            </label>
-          </div>
-        </mat-card> -->
+              </mat-radio-group>
+            </mat-card>
+          </mat-card>
+        </div>
+        <!-- end of Location Information -->
+        <!-- Contact Information -->
+        <div class="width-employee-form-field-1-2">
+          <mat-card class="mat-card-region" role="group">
+            <h4>Contact Information</h4>
+            <mat-radio-group class="radio-array-button"><mat-radio-button [checked]="true">Set as primary</mat-radio-button></mat-radio-group>
+            <button mat-flat-button (click)="addContact()" type="button" color="warn" class="add-button">Add Contact</button>
+            <mat-card role="region" class="mat-card-region mat-card-region--with-buttons">
+              <mat-radio-group formControlName="primcontact" formArrayName="contacts" class="employee-radio-group">
+                <div *ngFor="let contact of contacts.controls; let i = index">
+                    <mat-radio-button labelPosition="before" [value]="contact.value" [checked]="contact.value == primcontact.value">
+                      <mat-form-field class="employee-radio-button__input-container">
+                        <input matInput type="text" placeholder="Contact" [formControlName]="i" class="full-width-employee-field">
+                      </mat-form-field>
+                    </mat-radio-button>
+                </div>
+              </mat-radio-group>  
+            </mat-card>
+          </mat-card>        
+        </div> 
+        <!-- end of Contact Information -->
       </div>
       <p>Form Value: {{employeeDetailForm.value | json}}</p>
       <p>Form Status:{{employeeDetailForm.status}}</p>
       <mat-card-actions>
-        <button type="submit" [disabled]="!employeeDetailForm.valid" (click)="initilizeSomeEmployeeDetails()">Update</button>
+        <button type="submit" [disabled]="!employeeDetailForm.valid" (click)="saveEmployeeDetails(employeeDetailForm.value)">Save</button>
       </mat-card-actions>
     </mat-card>
   </form>

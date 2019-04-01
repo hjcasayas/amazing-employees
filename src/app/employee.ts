@@ -1,11 +1,14 @@
 export interface Employee {
-  id: number;
-  fullname: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
   primaddress: string;
   contact: string;
-  age: number;
-  months: number;
-  years: number;
-  edit: string;
-  delete: string;
+  months: string;
+  years: string;
+  dobirth: Date;
+  dohired: Date;
+  maritalStatus: string;
+  contacts: string[];
+  address: string[];
 }

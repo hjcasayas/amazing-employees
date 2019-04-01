@@ -1,12 +1,12 @@
 <div class="employee-list container clearfix">
-  <table class="mat-elevation-z8" mat-table [dataSource]="employees">
+  <table class="mat-elevation-z8" mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="fullname">
         <th mat-header-cell *matHeaderCellDef>Fullname</th>
         <td mat-cell *matCellDef="let element"> {{element.fullname}} </td>
     </ng-container>
-    <ng-container matColumnDef="primaddress">
+    <ng-container matColumnDef="address">
         <th mat-header-cell *matHeaderCellDef>Primary Address</th>
-        <td mat-cell *matCellDef="let element"> {{element.primaddress}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
     </ng-container>
     <ng-container matColumnDef="contact">
         <th mat-header-cell *matHeaderCellDef>Contact Information</th>
@@ -16,13 +16,9 @@
         <th mat-header-cell *matHeaderCellDef>Age</th>
         <td mat-cell *matCellDef="let element"> {{element.age}} </td>
     </ng-container>
-    <ng-container matColumnDef="years">
-        <th mat-header-cell *matHeaderCellDef>Years</th>
-        <td mat-cell *matCellDef="let element"> {{element.years}} </td>
-    </ng-container>
-    <ng-container matColumnDef="months">
-        <th mat-header-cell *matHeaderCellDef>Months</th>
-        <td mat-cell *matCellDef="let element"> {{element.months}} </td>
+    <ng-container matColumnDef="stay">
+        <th mat-header-cell *matHeaderCellDef>Years in the Company</th>
+        <td mat-cell *matCellDef="let element"> {{element.stay}} </td>
     </ng-container>
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Actions</th>

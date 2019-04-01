@@ -4,6 +4,18 @@
   margin-left: 0;
   display: block;
   overflow: hidden;
+  position: relative;
+
+}
+
+.mat-card-region--with-buttons {
+  margin: 1rem 0 0;
+}
+
+.add-button {
+  position: absolute;
+  top: .75rem;
+  right: 1rem;
 }
 
 .full-width-employee-form-field,
@@ -14,6 +26,7 @@ max-width: 100%;
 
 .employee-information__details__row {
   margin-right: -1rem;
+  display: flex;
 }
 
 .width-employee-form-field-1-3 {
@@ -21,6 +34,30 @@ max-width: 100%;
   width: 33.33%;
 }
 
-.employee-information__details__row .width-employee-form-field-1-3 {
+.width-employee-form-field-1-2 {
+  display: inline-block;
+  width: 50%;
+}
+
+.employee-information__details__row .width-employee-form-field-1-3,
+.employee-information__details__row .width-employee-form-field-1-2 {
   padding-right: 1rem;
+}
+
+.radio-array-button {
+  display: block;
+  margin-bottom: .25rem;
+}
+
+.employee-radio-group div {
+  display: flex;
+
+}
+
+.full-width-employee-form-field div.mat-radio-label-content {
+  flex-grow: 2;
+}
+
+.employee-radio-button__input-container {
+  width: 20rem;
 }
