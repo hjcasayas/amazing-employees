@@ -80,19 +80,22 @@ export class AddEmployeeComponent implements OnInit {
     return this.employeeDetailForm.get('primcontact');
   }
 
-addAddress() {
-  const arrayLastIndex = this.addresses.length - 1;
-  if(!((this.addresses.at(arrayLastIndex).value.trim()) === '')){
-    this.addresses.push(this.fb.control(''));
+addArrayElement(controlArray: FormArray, fromDeleteArrayMethod?: boolean) {
+  const arrayLastIndex = controlArray.length - 1;
+  if((!((controlArray.at(arrayLastIndex).value.trim()) === '')) || fromDeleteArrayMethod){
+    controlArray.push(this.fb.control(''));
   }
 }
 
-addContact() {
-  const arrayLastIndex = this.contacts.length - 1;
-  if(!((this.contacts.at(arrayLastIndex).value.trim()) === '')){
-    this.contacts.push(this.fb.control(''));
+deleteArrayElement(index: number, controlArray: FormArray) {
+  const arrayLength = controlArray.length;
+  if(arrayLength <= 1) {
+    this.addArrayElement(controlArray, true);
   }
+  controlArray.removeAt(index);
 }
+
+
 
   // addContact() {
   //   this.moreContacts.push(this.fb.control(''));

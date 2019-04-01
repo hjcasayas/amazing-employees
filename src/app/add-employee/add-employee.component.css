@@ -49,15 +49,19 @@ max-width: 100%;
   margin-bottom: .25rem;
 }
 
-.employee-radio-group div {
-  display: flex;
-
-}
-
-.full-width-employee-form-field div.mat-radio-label-content {
-  flex-grow: 2;
-}
-
 .employee-radio-button__input-container {
   width: 20rem;
+  margin-right: 2rem;
+}
+
+.delete-array-element {
+  display: inline-block;
+  position: relative;
+}
+.delete-array-element .delete-array-button{
+  position: absolute;
+  top: 50%;
+  transform: translate(-210%, -70%);
+  z-index: 10;
+  cursor: pointer;
 }

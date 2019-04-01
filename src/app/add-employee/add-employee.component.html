@@ -52,18 +52,21 @@
       <div class="employee-information__details__row clearfix">
         <!-- Location Information -->
         <div class="width-employee-form-field-1-2">
-          <mat-card class="mat-card-region" role="region">
+          <mat-card class="mat-card-region" role="group">
             <h4>Location Information</h4>
             <mat-radio-group class="radio-array-button"><mat-radio-button [checked]="true">Set as primary</mat-radio-button></mat-radio-group>
-            <button mat-flat-button (click)="addAddress()" type="button" color="warn" class="add-button">Add Address</button>
+            <button mat-flat-button (click)="addArrayElement(addresses)" type="button" color="warn" class="add-button">Add Address</button>
             <mat-card role="region" class="mat-card-region mat-card-region--with-buttons">
               <mat-radio-group formControlName="primaddress" formArrayName="addresses">
                 <div *ngFor="let address of addresses.controls; let i = index">
                   <mat-radio-button labelPosition="before" [value]=address.value [checked]="address.value === primaddress.value">
-                    <mat-form-field class="full-width-employee-form-field" class="employee-radio-button__input-container">
+                    <mat-form-field class="employee-radio-button__input-container">
                       <input matInput type="text" placeholder="Address" [formControlName]="i" class="full-width-employee-field">
                     </mat-form-field>            
                   </mat-radio-button>
+                  <a class="delete-array-element" (click)="deleteArrayElement(i, addresses)">
+                    <mat-icon class="delete-array-button" color="warn">delete</mat-icon>
+                  </a>                  
                 </div>
               </mat-radio-group>
             </mat-card>
@@ -75,15 +78,18 @@
           <mat-card class="mat-card-region" role="group">
             <h4>Contact Information</h4>
             <mat-radio-group class="radio-array-button"><mat-radio-button [checked]="true">Set as primary</mat-radio-button></mat-radio-group>
-            <button mat-flat-button (click)="addContact()" type="button" color="warn" class="add-button">Add Contact</button>
+            <button mat-flat-button (click)="addArrayElement(contacts)" type="button" color="warn" class="add-button">Add Contact</button>
             <mat-card role="region" class="mat-card-region mat-card-region--with-buttons">
-              <mat-radio-group formControlName="primcontact" formArrayName="contacts" class="employee-radio-group">
+              <mat-radio-group formControlName="primcontact" formArrayName="contacts">
                 <div *ngFor="let contact of contacts.controls; let i = index">
                     <mat-radio-button labelPosition="before" [value]="contact.value" [checked]="contact.value == primcontact.value">
                       <mat-form-field class="employee-radio-button__input-container">
                         <input matInput type="text" placeholder="Contact" [formControlName]="i" class="full-width-employee-field">
                       </mat-form-field>
                     </mat-radio-button>
+                    <a class="delete-array-element" (click)="deleteArrayElement(i, contacts)">
+                      <mat-icon class="delete-array-button" color="warn">delete</mat-icon>
+                    </a>
                 </div>
               </mat-radio-group>  
             </mat-card>
