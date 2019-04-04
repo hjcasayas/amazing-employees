@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormArray } from "@angular/forms";
+import { Validators, FormBuilder, FormArray, FormControl } from "@angular/forms";
 import { EmployeeService } from "../employee.service";
 import { Employee } from "../employee";
 import { SelectValuesType, GENDER, MARITAL_STATUS, POSITIONS } from "../form-select-values";
@@ -20,6 +20,12 @@ export class AddEmployeeComponent implements OnInit {
   employee: Employee;
   private employeesCollection: AngularFirestoreCollection<Employee>;
   employees: Observable<Employee[]>;
+  arrayIndex: number;
+  addAddressInput: string;
+  inputAddressTheSame: boolean;
+  inputAddressIsEmpty: boolean;
+  inputContactTheSame: boolean;
+  inputContactIsEmpty: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -31,18 +37,18 @@ export class AddEmployeeComponent implements OnInit {
   }
   
   employeeDetailForm = this.fb.group({
-    firstName : [''],
+    firstName : ['', Validators.required],
     middleName : [''],
-    lastName : [''],
-    dobirth : [''],
-    gender : [''],
+    lastName : ['',Validators.required],
+    dobirth : ['', Validators.required],
+    gender : ['', Validators.required],
     maritalStatus : [''],
-    position : [''],
-    dohired : [''],
-    primaddress: [''],
-    primcontact: [''],
-    addresses: this.fb.array([this.fb.control(''),]),
-    contacts: this.fb.array([this.fb.control(''),]),
+    position : ['', Validators.required],
+    dohired : ['', Validators.required],
+    primaddress: ['', Validators.required],
+    primcontact: ['', Validators.required],
+    addresses: this.fb.array([]),
+    contacts: this.fb.array([]),
   });
 
   ngOnInit() {}
@@ -80,22 +86,32 @@ export class AddEmployeeComponent implements OnInit {
     return this.employeeDetailForm.get('primcontact');
   }
 
-addArrayElement(controlArray: FormArray, fromDeleteArrayMethod?: boolean) {
-  const arrayLastIndex = controlArray.length - 1;
-  if((!((controlArray.at(arrayLastIndex).value.trim()) === '')) || fromDeleteArrayMethod){
-    controlArray.push(this.fb.control(''));
+addArrayElement(inputValue: string, controlArray: FormArray, primControl: FormControl) {
+  if(!inputValue.trim()) { 
+    return; 
   }
+  for (const item of controlArray.controls) {
+    if(inputValue == item.value) {
+      return;
+    }
+  }
+  controlArray.push(this.fb.control(inputValue));
+  this.isOnlyElementInArray(controlArray, primControl);
 }
 
-deleteArrayElement(index: number, controlArray: FormArray) {
-  const arrayLength = controlArray.length;
-  if(arrayLength <= 1) {
-    this.addArrayElement(controlArray, true);
+deleteArrayElement(index: number, controlArray: FormArray, primControl: FormControl) {
+  if (controlArray.at(index).value == primControl.value) {
+    primControl.setValue('');
   }
   controlArray.removeAt(index);
+  this.isOnlyElementInArray(controlArray, primControl);
 }
 
-
+isOnlyElementInArray(controlArray: FormArray, primControl: FormControl) {
+  if (controlArray.length == 1) {
+    primControl.patchValue(controlArray.at(0).value);
+  }
+}
 
   // addContact() {
   //   this.moreContacts.push(this.fb.control(''));

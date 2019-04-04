@@ -12,7 +12,8 @@ import {MatFormFieldModule}        from '@angular/material/form-field';
 import {MatInputModule}            from '@angular/material/input';
 import {MatSelectModule}           from '@angular/material/select';
 import {MatRadioModule}            from '@angular/material/radio';
-
+import {MatListModule}             from '@angular/material/list';
+import {MatGridListModule}         from '@angular/material/grid-list';
 
 
 
@@ -29,7 +30,9 @@ const MatComponents = [
   MatSelectModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatRadioModule
+  MatRadioModule,
+  MatListModule,
+  MatGridListModule
 ];
 
 @NgModule({

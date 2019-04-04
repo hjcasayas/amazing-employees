@@ -55,13 +55,50 @@ max-width: 100%;
 }
 
 .delete-array-element {
-  display: inline-block;
-  position: relative;
+  align-self: center;
 }
-.delete-array-element .delete-array-button{
-  position: absolute;
-  top: 50%;
-  transform: translate(-210%, -70%);
-  z-index: 10;
+.delete-array-element .delete-array-button,
+.edit-array-element .edit-array-button{
   cursor: pointer;
+}
+
+.array-title {
+  margin-bottom: 1rem;
+}
+
+.add-array-container {
+  display: flex;
+}
+
+.add-array-item__input {
+  flex-grow: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-array-icon-container {
+  width: 2.5rem;
+  height: 2.5rem
+}
+
+.add-array-icon {
+  font-size: 2.5rem;
+  transition: transform .3s;
+}
+
+.add-array-icon:hover {
+  transform: translateY(-3px);
+}
+
+.add-array-icon:active {
+  transform: translateY(-1px);
+}
+
+span.list-spacer {
+  flex: 1 1 auto;
+}
+
+.array-list {
+  overflow: hidden;
+  padding-right: 
 }

@@ -43,17 +43,18 @@ export class EmployeeListComponent implements OnInit {
     );
     this.emps.subscribe(
       data => { 
-        console.log(data);
         this.employees = data.map(d => {
           const employeeFullname = `${d.firstName} ${d.lastName}`;
           const todayYear: number = new Date().getFullYear();
           const todayMonth: number = new Date().getMonth() + 1;
-          const dob: number = d.dobirth.toDate().getFullYear();
-          const dohYear: number = d.dohired.toDate().getFullYear();
-          const dohMonth: number = d.dohired.toDate().getMonth() + 1;
+          const dob: Date = new Date(d.dobirth);
+          const dobYear: number = dob.getFullYear();
+          const doh: Date = new Date(d.dohired);
+          const dohYear: number = doh.getFullYear();
+          const dohMonth: number = doh.getMonth() + 1;
           const stayYear = (todayYear - dohYear) ? `${(todayYear - dohYear)}y` : '';
-          const stayMonth = (12 - Math.abs(dohMonth - todayMonth)) ? `${12 - Math.abs(dohMonth - todayMonth)}m` : '';
-          const employeeAge: number = todayYear - dob;
+          const stayMonth = ((dohMonth - todayMonth) < 0) ? `${12 - Math.abs(dohMonth - todayMonth)}m` : ((dohMonth - todayMonth) == 0) ? '' : `${dohMonth - todayMonth}m`;
+          const employeeAge: number = todayYear - dobYear;
           const stayLong = `${stayYear} ${stayMonth}`;
 
           return {
@@ -65,7 +66,6 @@ export class EmployeeListComponent implements OnInit {
             stay: stayLong
           };
         });
-        console.log(this.employees);
         this.dataSource = new MatTableDataSource(this.employees);
         this.dataSource.paginator = this.paginator;
       }
@@ -73,8 +73,6 @@ export class EmployeeListComponent implements OnInit {
 
   }
   
-  ngOnInit() {
-    console.log(this.employees);
-  } 
+  ngOnInit() {} 
 
 }

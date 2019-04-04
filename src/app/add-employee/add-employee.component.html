@@ -5,102 +5,168 @@
         <mat-card-title>Employee Information</mat-card-title>
       </mat-card-header>
       <div class="employee-information__details clearfix">
+        <!-- Personal Information -->
         <mat-card class="mat-card-region" role="region">
           <h4>Personal Information</h4>
+          <!-- First Name -->
           <mat-form-field class="full-width-employee-form-field">
             <input matInput type="text" placeholder="First Name" formControlName="firstName" class="full-width-employee-field">
-          </mat-form-field>
+            <mat-error *ngIf="employeeDetailForm.get('firstName').hasError('required')">
+              First name is <strong>required</strong>.
+            </mat-error>
+          </mat-form-field> <!--end of First Name -->
+          <!-- Middle Name -->
           <mat-form-field class="full-width-employee-form-field">
             <input matInput type="text" placeholder="Middle Name" formControlName="middleName" class="full-width-employee-field">
-          </mat-form-field>
+          </mat-form-field> <!-- end of Middle Name -->
+          <!-- Last Name -->
           <mat-form-field class="full-width-employee-form-field">
             <input matInput type="text" placeholder="Last Name" formControlName="lastName" class="full-width-employee-field">
-          </mat-form-field>
+            <mat-error *ngIf="employeeDetailForm.get('lastName').hasError('required')">
+              Last name is <strong>required</strong>.
+            </mat-error>          
+          </mat-form-field> <!-- end of Last Name -->
           <div class="employee-information__details__row clearfix">
-              <mat-form-field class="width-employee-form-field-1-3">
-                <mat-label>Gender</mat-label>
-                <mat-select formControlName="gender">
-                  <mat-option *ngFor="let gender of genders" [value]="gender.value">{{gender.viewValue}}</mat-option>
-                </mat-select>
-                </mat-form-field>            <mat-form-field class="width-employee-form-field-1-3">
-              <input matInput [matDatepicker] = "dobPicker" type="text" placeholder="Date Of Birth" formControlName="dobirth" class="full-width-employee-field">
-              <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-              <mat-datepicker #dobPicker></mat-datepicker>
-            </mat-form-field>
+            <!-- Gender -->
+            <mat-form-field class="width-employee-form-field-1-3">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender">
+                <mat-option *ngFor="let gender of genders" [value]="gender.value">{{gender.viewValue}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="employeeDetailForm.get('gender').hasError('required')">
+                Gender is <strong>required</strong>.
+              </mat-error>          
+            </mat-form-field> <!-- end of Gender -->
+            <!-- Date of Birth -->
+            <mat-form-field class="width-employee-form-field-1-3">
+              <input matInput type="date" placeholder="Date Of Birth" formControlName="dobirth" class="full-width-employee-field">
+              <mat-error *ngIf="employeeDetailForm.get('dobirth').hasError('required')">
+                Birth date is <strong>required</strong>.
+              </mat-error>          
+            </mat-form-field> <!-- end of Date of Birth -->
+            <!-- Marital Status -->
             <mat-form-field class="width-employee-form-field-1-3">
               <mat-label>Marital Status</mat-label>
               <mat-select formControlName="maritalStatus">
                 <mat-option *ngFor="let maritalStat of maritalStats" [value]="maritalStat.value">{{maritalStat.viewValue}}</mat-option>
               </mat-select>
-            </mat-form-field>
+              <mat-error *ngIf="employeeDetailForm.get('dobirth').hasError('required')">
+                  Birth date is <strong>required</strong>.
+              </mat-error>                        
+            </mat-form-field> <!-- end of Marital Status -->
           </div>
           <div class="employee-information__details__row">
+            <!-- Position -->
             <mat-form-field class="width-employee-form-field-1-3">
               <mat-label>Position</mat-label>
               <mat-select formControlName="position">
                 <mat-option *ngFor="let position of positions" [value]="position.value">{{position.viewValue}}</mat-option>
               </mat-select>
-            </mat-form-field>
+              <mat-error *ngIf="employeeDetailForm.get('position').hasError('required')">
+                  Position is <strong>required</strong>.
+              </mat-error>                                      
+            </mat-form-field> <!-- end of Position -->
+            <!-- Hired Date -->
             <mat-form-field class="width-employee-form-field-1-3">
-                <input matInput [matDatepicker] = "dhPicker" type="text" placeholder="Date Hired" formControlName="dohired" class="full-width-employee-field">
-                <mat-datepicker-toggle matSuffix [for]="dhPicker"></mat-datepicker-toggle>
-                <mat-datepicker #dhPicker></mat-datepicker>
-            </mat-form-field>                      
+                <input matInput type="date" placeholder="Date Hired" formControlName="dohired" class="full-width-employee-field">
+                <mat-error *ngIf="employeeDetailForm.get('dohired').hasError('required')">
+                    Date hired is <strong>required</strong>.
+                </mat-error>                
+            </mat-form-field> <!-- end of Hired Date -->                    
           </div>
+        </mat-card> <!--end of Personal Information -->
+      </div>
+      <!-- Location Information -->
+      <!-- Address -->
+      <mat-card class="mat-card-region" role="group">
+        <h4>Location Information</h4>
+        <mat-card role="group" class="add-array-container">
+          <mat-form-field class="add-array-item__input">
+            <input matInput #addressArrayInput matAutosize="true" type="text" placeholder="Add Address">
+          </mat-form-field>
+          <button mat-icon-button disableRipple="true" type="button" color="warn" (click)="addArrayElement(addressArrayInput.value, addresses, primaddress); addressArrayInput.value=''">
+            <mat-icon class="add-array-icon">add_box</mat-icon>
+          </button>              
         </mat-card>
-      </div>
-      <div class="employee-information__details__row clearfix">
-        <!-- Location Information -->
-        <div class="width-employee-form-field-1-2">
-          <mat-card class="mat-card-region" role="group">
-            <h4>Location Information</h4>
+        <!-- Primary Address -->
+        <mat-card role="region" class="mat-card-region mat-card-region--with-buttons">
+          <mat-toolbar class="array-title"><h4>List of Addresses</h4></mat-toolbar>
+          <mat-hint *ngIf="addresses.length>0;">
             <mat-radio-group class="radio-array-button"><mat-radio-button [checked]="true">Set as primary</mat-radio-button></mat-radio-group>
-            <button mat-flat-button (click)="addArrayElement(addresses)" type="button" color="warn" class="add-button">Add Address</button>
-            <mat-card role="region" class="mat-card-region mat-card-region--with-buttons">
-              <mat-radio-group formControlName="primaddress" formArrayName="addresses">
-                <div *ngFor="let address of addresses.controls; let i = index">
-                  <mat-radio-button labelPosition="before" [value]=address.value [checked]="address.value === primaddress.value">
-                    <mat-form-field class="employee-radio-button__input-container">
-                      <input matInput type="text" placeholder="Address" [formControlName]="i" class="full-width-employee-field">
-                    </mat-form-field>            
+          </mat-hint>
+          <mat-radio-group formControlName="primaddress" formArrayName="addresses">
+          <mat-list class="array-list" role="list" *ngIf="addresses.length>0; else emptyAddressesArray" >
+            <mat-list-item *ngFor="let address of addresses.controls; let i = index" role="listitem" >
+              <mat-radio-button labelPosition="after" [value]=address.value [checked]="address.value === primaddress.value" >
+                {{address.value}}
+              </mat-radio-button>
+              <span class="list-spacer">
+              </span>
+              <a class="delete-array-element" (click)="deleteArrayElement(i, addresses, primaddress)">
+                <mat-icon class="delete-array-button" color="warn">delete</mat-icon>
+              </a>                  
+            </mat-list-item>
+          </mat-list>
+          <ng-template #emptyAddressesArray>
+            <mat-grid-list cols="1" rowHeight="3.5rem">
+              <mat-grid-tile>
+                No address available. Please add atleast one.
+              </mat-grid-tile>
+            </mat-grid-list>
+          </ng-template>
+          <mat-error *ngIf="primaddress.dirty && primaddress.invalid">
+              Please select a <strong>primary address</strong>.
+          </mat-error>        
+          </mat-radio-group> <!-- end of Primary Address -->
+        </mat-card>
+      </mat-card> <!-- end of Address -->
+      <!-- Contact Information -->
+      <!-- Contacts -->
+      <mat-card class="mat-card-region" role="group">
+        <h4>Contact Information</h4>
+        <mat-card role="group" class="add-array-container">
+          <mat-form-field class="add-array-item__input">
+            <input matInput #contactArrayInput matAutoresize="true" type="text" placeholder="Add Contact">
+          </mat-form-field>
+          <button mat-icon-button disableRipple type="button" color="warn" (click)="addArrayElement(contactArrayInput.value, contacts, primcontact); contactArrayInput.value=''" >
+            <mat-icon class="add-array-icon">add_box</mat-icon>
+          </button>
+        </mat-card>
+        <!-- Primary Contact -->
+        <mat-card role="region" class="mat-card-region mat-card-region--with-buttons">
+          <mat-toolbar class="array-title"><h4>List of Contacts</h4></mat-toolbar>
+          <mat-hint *ngIf="contacts.length>0;">
+            <mat-radio-group class="radio-array-button"><mat-radio-button [checked]="false">Set as primary</mat-radio-button></mat-radio-group>
+          </mat-hint>
+          <mat-radio-group formControlName="primcontact" formArrayName="contacts">
+            <mat-list class="array-list" role="list" *ngIf="contacts.length>0; else emptyContactsArray">
+              <mat-list-item *ngFor="let contact of contacts.controls; let i = index" role="listitem">
+                  <mat-radio-button labelPosition="after" [value]="contact.value" [checked]="contact.value === primcontact.value">
+                      {{contact.value}}
                   </mat-radio-button>
-                  <a class="delete-array-element" (click)="deleteArrayElement(i, addresses)">
+                  <span class="list-spacer"></span>
+                  <a class="delete-array-element" (click)="deleteArrayElement(i, contacts, primcontact)">
                     <mat-icon class="delete-array-button" color="warn">delete</mat-icon>
-                  </a>                  
-                </div>
-              </mat-radio-group>
-            </mat-card>
-          </mat-card>
-        </div>
-        <!-- end of Location Information -->
-        <!-- Contact Information -->
-        <div class="width-employee-form-field-1-2">
-          <mat-card class="mat-card-region" role="group">
-            <h4>Contact Information</h4>
-            <mat-radio-group class="radio-array-button"><mat-radio-button [checked]="true">Set as primary</mat-radio-button></mat-radio-group>
-            <button mat-flat-button (click)="addArrayElement(contacts)" type="button" color="warn" class="add-button">Add Contact</button>
-            <mat-card role="region" class="mat-card-region mat-card-region--with-buttons">
-              <mat-radio-group formControlName="primcontact" formArrayName="contacts">
-                <div *ngFor="let contact of contacts.controls; let i = index">
-                    <mat-radio-button labelPosition="before" [value]="contact.value" [checked]="contact.value == primcontact.value">
-                      <mat-form-field class="employee-radio-button__input-container">
-                        <input matInput type="text" placeholder="Contact" [formControlName]="i" class="full-width-employee-field">
-                      </mat-form-field>
-                    </mat-radio-button>
-                    <a class="delete-array-element" (click)="deleteArrayElement(i, contacts)">
-                      <mat-icon class="delete-array-button" color="warn">delete</mat-icon>
-                    </a>
-                </div>
-              </mat-radio-group>  
-            </mat-card>
-          </mat-card>        
-        </div> 
-        <!-- end of Contact Information -->
-      </div>
+                  </a>
+              </mat-list-item>
+            </mat-list>
+            <ng-template #emptyContactsArray> 
+              <mat-grid-list cols="1" rowHeight="3.5rem">
+                <mat-grid-tile>
+                  No contact available. Please add atleast one.
+                </mat-grid-tile>
+              </mat-grid-list>
+            </ng-template>
+            <mat-error *ngIf="primcontact.dirty && primcontact.invalid">
+              Please selet a <strong>primary contact</strong>.
+            </mat-error>
+          </mat-radio-group>  
+        </mat-card>
+      </mat-card> <!-- end of Contacts -->  
       <p>Form Value: {{employeeDetailForm.value | json}}</p>
       <p>Form Status:{{employeeDetailForm.status}}</p>
       <mat-card-actions>
-        <button type="submit" [disabled]="!employeeDetailForm.valid" (click)="saveEmployeeDetails(employeeDetailForm.value)">Save</button>
+        <button mat-flat-button color="warn" type="submit" [disabled]="!employeeDetailForm.valid" (click)="saveEmployeeDetails(employeeDetailForm.value)">Save</button>
       </mat-card-actions>
     </mat-card>
   </form>
