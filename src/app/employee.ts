@@ -10,5 +10,5 @@ export interface Employee {
   dohired: Date;
   maritalStatus: string;
   contacts: string[];
-  address: string[];
+  addresses: string[];
 }

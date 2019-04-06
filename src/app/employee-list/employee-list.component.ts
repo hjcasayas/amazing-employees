@@ -3,11 +3,7 @@ import { Employee } from "../employee";
 import { TableData } from "../table-data";
 import { EmployeeService } from '../employee.service';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {DomSanitizer} from '@angular/platform-browser';
-import {MatIconRegistry} from '@angular/material';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
 
 export interface EmployeeId extends Employee { id: string; }
 
@@ -22,26 +18,21 @@ export class EmployeeListComponent implements OnInit {
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  private employeesCollection: AngularFirestoreCollection<Employee>;
   dataSource: MatTableDataSource<any>;
   employees: TableData[];
   displayedColumns: string[] = ['fullname', 'address', 'contact', 'age', 'stay', 'id' ];
   emps: Observable<any[]>;
 
-
   constructor(
     private employeeService: EmployeeService, 
-    private afs: AngularFirestore,
-  ) {
-    this.employeesCollection = afs.collection('employees');
-    this.emps = this.employeesCollection.snapshotChanges().pipe(
-      map(actions=>actions.map(a=>{
-        const data = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        return {id, ...data};
-      })),
-    );
-    this.emps.subscribe(
+  ) {}
+  
+  ngOnInit() {
+    this.getEmployees();
+  } 
+
+  getEmployees(): void {
+    this.employeeService.getEmployees().subscribe(
       data => { 
         this.employees = data.map(d => {
           const employeeFullname = `${d.firstName} ${d.lastName}`;
@@ -70,9 +61,18 @@ export class EmployeeListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
     );
-
   }
-  
-  ngOnInit() {} 
 
+  deleteEmployee(id: string): void {
+    this.employeeService.getEmployeeById(id)
+      .subscribe(employee => {
+          if(!employee) {return;}
+          const fullname = `${employee.firstName} ${employee.lastName}`;
+          const toDelete = confirm('Are you sure you want to delete ' + fullname + ' details?' );
+          if (toDelete) {
+            this.employeeService.deleteEmployee(id);
+          }
+        }
+      );
+  }
 }

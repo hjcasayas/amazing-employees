@@ -97,7 +97,7 @@
           <mat-radio-group formControlName="primaddress" formArrayName="addresses">
           <mat-list class="array-list" role="list" *ngIf="addresses.length>0; else emptyAddressesArray" >
             <mat-list-item *ngFor="let address of addresses.controls; let i = index" role="listitem" >
-              <mat-radio-button labelPosition="after" [value]=address.value [checked]="address.value === primaddress.value" >
+              <mat-radio-button labelPosition="after" [value]=address.value>
                 {{address.value}}
               </mat-radio-button>
               <span class="list-spacer">
@@ -141,7 +141,7 @@
           <mat-radio-group formControlName="primcontact" formArrayName="contacts">
             <mat-list class="array-list" role="list" *ngIf="contacts.length>0; else emptyContactsArray">
               <mat-list-item *ngFor="let contact of contacts.controls; let i = index" role="listitem">
-                  <mat-radio-button labelPosition="after" [value]="contact.value" [checked]="contact.value === primcontact.value">
+                  <mat-radio-button labelPosition="after" [value]="contact.value">
                       {{contact.value}}
                   </mat-radio-button>
                   <span class="list-spacer"></span>
@@ -166,7 +166,10 @@
       <p>Form Value: {{employeeDetailForm.value | json}}</p>
       <p>Form Status:{{employeeDetailForm.status}}</p>
       <mat-card-actions>
-        <button mat-flat-button color="warn" type="submit" [disabled]="!employeeDetailForm.valid" (click)="saveEmployeeDetails(employeeDetailForm.value)">Save</button>
+        <button *ngIf="isAnUpdate; else isNew" mat-flat-button color="warn" type="button" [disabled]="!employeeDetailForm.valid" (click)="updateEmployeeDetails(employeeDetailForm.value)">Update</button>
+        <ng-template #isNew>
+          <button mat-flat-button color="warn" type="button" [disabled]="!employeeDetailForm.valid" (click)="saveEmployeeDetails(employeeDetailForm.value)">Save</button>
+        </ng-template>
       </mat-card-actions>
     </mat-card>
   </form>

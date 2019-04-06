@@ -7,14 +7,11 @@ export class MessageService {
 
   constructor() { }
 
-  messages: string[] = [];
+  recentMessage: string;
 
-  addMessage(message: string) {
-    this.messages.push(message);
-  }
-
-  clearMessages() {
-    this.messages=[];
+  logMessage(message: string) {
+    this.recentMessage = message;
+    console.log(this.recentMessage);
   }
 
 }

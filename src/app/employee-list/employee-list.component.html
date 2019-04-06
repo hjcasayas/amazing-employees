@@ -26,7 +26,7 @@
             <a routerLink="/add-employee/{{element.id}}">
                 <mat-icon color="primary">edit</mat-icon>
             </a>
-            <a routerLink=".">
+            <a (click)="deleteEmployee(element.id)" style="cursor: pointer;">
                 <mat-icon color="warn">delete</mat-icon>
             </a>
         </td>
