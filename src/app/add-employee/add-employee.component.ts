@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormArray, FormControl, FormGroup } from "@angular/forms";
+import { Validators, FormBuilder, FormArray, FormControl, FormGroup, AbstractControl } from "@angular/forms";
 import { EmployeeService } from "../employee.service";
 import { Employee } from "../employee";
 import { GENDER, MARITAL_STATUS, POSITIONS } from "../form-select-values";
@@ -103,7 +103,7 @@ export class AddEmployeeComponent implements OnInit {
     return this.employeeDetailForm.get('primcontact');
   }
 
-  addArrayElement(inputValue: string, controlArray: FormArray, primControl: FormControl) {
+  addArrayElement(inputValue: string, controlArray: FormArray, primControl: AbstractControl) {
     if(!inputValue.trim()) { 
       return; 
     }
@@ -116,7 +116,7 @@ export class AddEmployeeComponent implements OnInit {
     this.isOnlyElementInArray(controlArray, primControl);
   }
 
-  deleteArrayElement(index: number, controlArray: FormArray, primControl: FormControl) {
+  deleteArrayElement(index: number, controlArray: FormArray, primControl: AbstractControl) {
     if (controlArray.at(index).value == primControl.value) {
       primControl.setValue('');
     }
@@ -124,7 +124,7 @@ export class AddEmployeeComponent implements OnInit {
     this.isOnlyElementInArray(controlArray, primControl);
   }
 
-  isOnlyElementInArray(controlArray: FormArray, primControl: FormControl) {
+  isOnlyElementInArray(controlArray: FormArray, primControl: AbstractControl) {
     if (controlArray.length == 1) {
       primControl.patchValue(controlArray.at(0).value);
     }
