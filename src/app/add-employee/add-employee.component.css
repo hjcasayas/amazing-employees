@@ -100,5 +100,14 @@ span.list-spacer {
 
 .array-list {
   overflow: hidden;
-  padding-right: 
+}
+
+.employee-information {
+  padding-bottom: 2rem;
+}
+
+.update-button,
+.save-button {
+  margin-left: .6rem;
+  margin-right: .5rem;
 }

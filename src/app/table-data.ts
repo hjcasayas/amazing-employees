@@ -5,8 +5,4 @@ export interface TableData {
   age: number;
   stay: string;
   id: string;
-  primaddress: string;
-  primcontact: string;
-  addresses: string[];
-  contacts: string[];
 }

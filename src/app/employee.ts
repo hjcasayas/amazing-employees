@@ -1,9 +1,10 @@
 export interface Employee {
+  id: string;
   firstName: string;
   middleName: string;
   lastName: string;
   primaddress: string;
-  contact: string;
+  primcontact: string;
   months: string;
   years: string;
   dobirth: Date;

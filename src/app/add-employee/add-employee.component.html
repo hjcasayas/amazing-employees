@@ -163,14 +163,17 @@
           </mat-radio-group>  
         </mat-card>
       </mat-card> <!-- end of Contacts -->  
-      <p>Form Value: {{employeeDetailForm.value | json}}</p>
-      <p>Form Status:{{employeeDetailForm.status}}</p>
-      <mat-card-actions>
-        <button *ngIf="isAnUpdate; else isNew" mat-flat-button color="warn" type="button" [disabled]="!employeeDetailForm.valid" (click)="updateEmployeeDetails(employeeDetailForm.value)">Update</button>
-        <ng-template #isNew>
-          <button mat-flat-button color="warn" type="button" [disabled]="!employeeDetailForm.valid" (click)="saveEmployeeDetails(employeeDetailForm.value)">Save</button>
-        </ng-template>
+      <!-- <p>Form Value: {{employeeDetailForm.value | json}}</p>
+      <p>Form Status:{{employeeDetailForm.status}}</p> -->
+      <mat-card-actions *ngIf="isAnUpdate; else isNew">
+        <button mat-flat-button class="update-button" color="warn" type="button" [disabled]="!employeeDetailForm.valid" (click)="updateEmployeeDetails(employeeDetailForm.value)">Update</button>
+        <button mat-stroked-button type="button" routerLink="/employee-list">Cancel</button>
       </mat-card-actions>
+      <ng-template #isNew>
+        <mat-card-actions>
+          <button class="save-button" mat-flat-button color="warn" type="button" [disabled]="!employeeDetailForm.valid" (click)="saveEmployeeDetails(employeeDetailForm.value)">Save</button>
+        </mat-card-actions>
+      </ng-template>
     </mat-card>
   </form>
   

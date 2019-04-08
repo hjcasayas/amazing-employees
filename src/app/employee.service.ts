@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 
 import { MessageService } from './message.service';
 import { catchError, map, tap } from "rxjs/operators";
+import { TableData } from './table-data';
 
 @Injectable({
   providedIn: 'root'
@@ -20,16 +21,38 @@ export class EmployeeService {
     ) {
       this.employeesCollection = db.collection('employees');
     }
-    
-  getEmployees(): Observable<any> {
+
+  getEmployees(): Observable<TableData[]> {
     return this.employeesCollection.snapshotChanges().pipe(
       map( actions => actions.map( a => {
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;
-        return {id, ...data};
+        const employeeFullname = `${data.firstName} ${data.lastName}`;
+        const todayYear: number = new Date().getFullYear();
+        const todayMonth: number = new Date().getMonth() + 1;
+        const dob: Date = new Date(data.dobirth);
+        const dobYear: number = dob.getFullYear();
+        const doh: Date = new Date(data.dohired);
+        const dohYear: number = doh.getFullYear();
+        const dohMonth: number = doh.getMonth() + 1;
+        const stayYear = (todayYear - dohYear) ? `${(todayYear - dohYear)}y` : '';
+        const stayMonth = ((dohMonth - todayMonth) < 0) ? `${12 - Math.abs(dohMonth - todayMonth)}m` : ((dohMonth - todayMonth) == 0) ? '' : `${dohMonth - todayMonth}m`;
+        const employeeAge: number = todayYear - dobYear;
+        const stayLong = `${stayYear} ${stayMonth}`;
+
+        return {
+          id: id, 
+          fullname: employeeFullname, 
+          address: data.primaddress, 
+          contact: data.primcontact,
+          age: employeeAge,
+          stay: stayLong
+        };
+        
+
       })),
       tap(_=>this.log(`getEmployees(): Generated list of employees.`)),
-      catchError(this.handleError<Employee[]>('getEmployees', []))
+      catchError(this.handleError<TableData[]>('getEmployees', []))
     );
   }
 
